@@ -1,34 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { createTheme, ThemeProvider } from '@mui/material'
 import './App.css'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { MainLayout } from './layouts/MainLayout'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#CCD5AE',
+      dark: '#8e9579',
+      light: '#d6ddbe',
+      contrastText: '#000'
+    },
+    secondary: {
+      main: '#D4A373',
+      dark: '#D4A373',
+      light: '#dcb58f',
+      contrastText: '#000'
+    }
+  }
+})
+
+const HomePage = lazy(() => import('./pages/HomePage').then(module => ({ default: module.HomePage })))
+const ProductListPage = lazy(() => import('./pages/ProductListPage').then(module => ({ default: module.ProductListPage })))
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <Suspense fallback={<div>Loading...</div>} >
+          <MainLayout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/products" element={<ProductListPage />} />
+            </Routes>
+          </MainLayout>
+        </Suspense>
+      </ThemeProvider>
+    </Router>
   )
 }
 
