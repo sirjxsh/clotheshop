@@ -14,13 +14,18 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   border: '1px solid',
   borderColor: theme.palette.divider,
   backgroundColor: `rgba(${theme.palette.background.default} / 0.4)`,
-  boxShadow: (theme || theme).shadows[1],
+  boxShadow: theme.shadows[1],
   padding: '8px 12px',
 }));
 
 export function AppNavBar() {
   return (
-    <AppBar position="static" enableColorOnDark>
+    <AppBar position="fixed" enableColorOnDark sx={{
+      boxShadow: 0,
+      bgcolor: 'transparent',
+      backgroundImage: 'none',
+      mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+    }}>
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', px: 0}}>
@@ -28,7 +33,6 @@ export function AppNavBar() {
             <Box sx={{ display: {xs: 'none', md: 'flex'}, ml: 2, gap: 1}}>
               <Button variant="text" color="inherit" component={Link} to ="/">Home</Button>
               <Button variant="text" color="inherit" component={Link} to="/products">Produkte</Button>
-              <Button variant="text" color="inherit">Variant</Button> 
             </Box>
           </Box>
           <Box sx={{ display: {xs: 'none', md: 'flex'}, gap: 1, alignItems: 'center'}}>

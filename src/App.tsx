@@ -1,10 +1,13 @@
-import { createTheme, ThemeProvider } from '@mui/material'
+import { CircularProgress, createTheme, ThemeProvider } from '@mui/material'
 import './App.css'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { MainLayout } from './layouts/MainLayout'
 
 const theme = createTheme({
+  typography: {
+    fontFamily: 'Roboto, sans-serif',
+  },
   palette: {
     primary: {
       main: '#CCD5AE',
@@ -28,11 +31,13 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        <Suspense fallback={<div>Loading...</div>} >
+        <Suspense fallback={<CircularProgress />} >
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/products" element={<ProductListPage />} />
+
+              <Route path="*" element={<h1>404 - Not Found</h1>} />
             </Routes>
           </MainLayout>
         </Suspense>

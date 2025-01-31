@@ -3,7 +3,7 @@
 ## ToDo
 - [ ] Landing Page
 - [X] Navigation
-- [ ] Produktlistenseite (Shop API) mit Sortieroptionen (Alphabetisch)
+- [X] Produktlistenseite (Shop API) mit Sortieroptionen (Alphabetisch)
 - [ ] How to (Read me)
 - [ ] Warenkorb
 
