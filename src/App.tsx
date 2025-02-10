@@ -3,6 +3,9 @@ import './App.css'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { MainLayout } from './layouts/MainLayout'
+import { CartPage } from './pages/CartPage'
+import { ProductPage } from './pages/ProductPage'
+import { CartProvider } from './services/CardContext'
 
 const theme = createTheme({
   typography: {
@@ -31,16 +34,20 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
+        <CartProvider>
         <Suspense fallback={<CircularProgress />} >
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/products" element={<ProductListPage />} />
+              <Route path="/products/:id" element={<ProductPage />} />
+              <Route path="/cart" element={<CartPage />} />
 
               <Route path="*" element={<h1>404 - Not Found</h1>} />
             </Routes>
           </MainLayout>
         </Suspense>
+        </CartProvider>
       </ThemeProvider>
     </Router>
   )

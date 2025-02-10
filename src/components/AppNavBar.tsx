@@ -1,8 +1,9 @@
-import { AppBar, Box, Button, Container, Toolbar } from "@mui/material";
+import { AppBar, Badge, Box, Button, Container, IconButton, Toolbar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Logo } from "./Logo";
 import { ShoppingCart } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useCart } from "../services/CardContext";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -19,6 +20,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 export function AppNavBar() {
+  const { cart } = useCart();
+  const cartItemCount = cart.length;
   return (
     <AppBar position="fixed" enableColorOnDark sx={{
       boxShadow: 0,
@@ -28,16 +31,20 @@ export function AppNavBar() {
     }}>
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
-          <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', px: 0}}>
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <Logo />
-            <Box sx={{ display: {xs: 'none', md: 'flex'}, ml: 2, gap: 1}}>
-              <Button variant="text" color="inherit" component={Link} to ="/">Home</Button>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2, gap: 1 }}>
+              <Button variant="text" color="inherit" component={Link} to="/">Home</Button>
               <Button variant="text" color="inherit" component={Link} to="/products">Produkte</Button>
             </Box>
           </Box>
-          <Box sx={{ display: {xs: 'none', md: 'flex'}, gap: 1, alignItems: 'center'}}>
-            <Button variant="text" color="inherit">Login</Button>
-            <ShoppingCart color="secondary"/>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
+            <Button variant="text" color="inherit" aria-label="Login Button is just for viewing purposes">Login</Button>
+            <IconButton color="secondary" aria-label={"View Shopping Cart"} component={Link} to="/cart">
+              <Badge badgeContent={cartItemCount} color="error">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
           </Box>
         </StyledToolbar>
       </Container>

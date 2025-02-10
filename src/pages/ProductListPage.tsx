@@ -31,8 +31,8 @@ export function ProductListPage() {
         return `${value} items`;
     }
 
-    const handleSliderChange = (event: Event, newValue: number | number[]) => {
-        setLimit(newValue as number);
+    const handleSliderChange = (_event: Event, value: number | number[]) => {
+        setLimit(value as number);
         setOffset(0); // Reset offset when limit changes
         setKey(prevKey => prevKey + 1); // Force re-render
     };
@@ -48,7 +48,7 @@ export function ProductListPage() {
     };
 
     const handleSortChange = (event: SelectChangeEvent<string>) => {
-        setSortOrder(event.target.value as string);
+        setSortOrder(event.target.value);
         setKey(prevKey => prevKey + 1); // Force re-render
     };
 
