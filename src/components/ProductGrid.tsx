@@ -1,7 +1,8 @@
 import { CircularProgress, Grid2 } from "@mui/material";
 import { useEffect, useState } from "react";
-import productApi, { IProduct } from "../services/ProductApi";
+import productApi from "../services/ProductApi";
 import { ProductCard } from "./ProductCard";
+import { IProduct } from "../services/Interfaces";
 
 interface ProductGridProps {
     preview?: boolean;

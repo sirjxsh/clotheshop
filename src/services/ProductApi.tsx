@@ -1,21 +1,7 @@
 import axios from "axios";
+import { IProduct } from "./Interfaces";
 
-const API_BASE_URL = 'https://api.escuelajs.co/api/v1/'
-
-export interface IProduct {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: ICategory;
-    images: string[];
-}
-
-export interface ICategory {
-    id: number;
-    name: string;
-    image: string;
-}
+const API_BASE_URL = 'https://fakestoreapi.com/'
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -34,15 +20,11 @@ const productApi = {
         return response.data;
     },
     getProductsWithPagination: async (offset: number, limit: number): Promise<IProduct[]> => {
-        const response = await apiClient.get(`products/?offset=${offset}&limit=${limit}`);
-        return response.data;
+        const response = await apiClient.get(`products`);
+        return response.data.slice(offset, offset + limit);
     },
-    getProductsByTitle: async (title: string): Promise<IProduct[]> => {
-        const response = await apiClient.get(`products/?title=${title}`);
-        return response.data;
-    },
-    getProductsByCategory: async (categoryId: number): Promise<IProduct[]> => {
-        const response = await apiClient.get(`products/?categoryId=${categoryId}`);
+    getProductsByCategory: async (category: string): Promise<IProduct[]> => {
+        const response = await apiClient.get(`products/?categoryId=${category}`);
         return response.data;
     }
 }

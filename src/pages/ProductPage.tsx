@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import productApi, { IProduct } from "../services/ProductApi";
-import { Card, CircularProgress, Container, IconButton, ImageList, ImageListItem, Tooltip, Typography } from "@mui/material";
+import { Card, CircularProgress, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { AddShoppingCart } from "@mui/icons-material";
 import { useCart } from "../services/CardContext";
+import { IProduct } from "../services/Interfaces";
+import productApi from "../services/ProductApi";
 
 export function ProductPage() {
 
@@ -30,7 +31,7 @@ export function ProductPage() {
             }
         }
         fetchProducts();
-    }, []);
+    });
 
     const handleAddToCart = () => {
         if (product) {
@@ -45,17 +46,14 @@ export function ProductPage() {
 
     return (
         <Container>
-            <Typography variant="h4">{product.title}</Typography>
-            <ImageList sx={{ height: 500 }} cols={2}>
-                {product.images.map((image, index) => (
-                    <ImageListItem key={index}>
-                        <img srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            src={`${image}?w=164&h=164&fit=crop&auto=format`}
-                            alt={product.title}
-                            loading="lazy" />
-                    </ImageListItem>
-                ))}
-            </ImageList>
+            <Typography variant="h4" sx={{marginBottom: 2}}>{product.title}</Typography>
+            <img 
+                srcSet={product.image}
+                src={product.image}
+                alt={product.title}
+                loading="lazy"
+                style={{ width: 'auto', maxHeight: '300px', marginBottom: '2rem' }}
+            />
             <Container sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'space-evenly', alignItems: 'center' }}>
                 <Card sx={{ padding: 2, borderRadius: 2 }}>
                     <Typography variant="body1">{product.description}</Typography>

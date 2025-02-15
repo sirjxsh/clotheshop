@@ -1,22 +1,10 @@
-import { useState } from "react";
 import { Card, CardContent, CardMedia, Typography, CardActions, Button, IconButton } from "@mui/material";
-import { IProduct } from "../services/ProductApi";
 import { AddShoppingCart } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { IProduct } from "../services/Interfaces";
 
 export function ProductCard(product: Readonly<IProduct>) {
-    const [imageIndex, setImageIndex] = useState(0);
     const navigate = useNavigate();
-
-    const handleMouseEnter = () => {
-        if (product.images.length > 1) {
-            setImageIndex(1);
-        }
-    };
-
-    const handleMouseLeave = () => {
-        setImageIndex(0);
-    };
 
     const handleCardClick = () => {
         navigate(`/products/${product.id}`);
@@ -38,13 +26,11 @@ export function ProductCard(product: Readonly<IProduct>) {
                 cursor: 'pointer',
                 height: '100%', // Stellt sicher, dass alle Karten gleich hoch sind
             }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
         >
             <CardMedia
                 component="img"
                 height="240"
-                image={product.images[imageIndex]}
+                image={product.image}
                 alt={product.title}
                 onClick={handleCardClick}
             />

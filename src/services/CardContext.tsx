@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { IProduct } from './ProductApi';
-import { CartContextType, CartProduct } from './Interfaces';
+import { CartContextType, CartProduct, IProduct } from './Interfaces';
 import { v4 as uuidv4 } from 'uuid';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
