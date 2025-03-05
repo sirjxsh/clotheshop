@@ -2,9 +2,11 @@ import axios from "axios";
 import { IProduct } from "./Interfaces";
 
 const API_BASE_URL = 'https://fakestoreapi.com/'
+const LOCAL_BASE_URL = '../assets/products.json'
+const MODE = import.meta.env.NODE_ENV ?? 'api'
 
 const apiClient = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: import.meta.env.NODE_ENV == 'local' ? LOCAL_BASE_URL : API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -12,20 +14,22 @@ const apiClient = axios.create({
 
 const productApi = {
     getProducts: async (): Promise<IProduct[]> => {
-        const response = await apiClient.get('products');
-        return response.data;
+            return (await apiClient.get('products')).data;
+
     },
     getProductById: async (id: number): Promise<IProduct> => {
-        const response = await apiClient.get(`products/${id}`);
-        return response.data;
+        if (MODE == 'local') {
+            return (await apiClient.get('')).data.find((product: IProduct) => product.id === id);
+        }
+        return (await apiClient.get(`products/${id}`)).data;
     },
     getProductsWithPagination: async (offset: number, limit: number): Promise<IProduct[]> => {
-        const response = await apiClient.get(`products`);
+        let response
+        if (MODE == 'local') {
+            response = await apiClient.get('');
+        }
+        response = await apiClient.get('products');
         return response.data.slice(offset, offset + limit);
-    },
-    getProductsByCategory: async (category: string): Promise<IProduct[]> => {
-        const response = await apiClient.get(`products/?categoryId=${category}`);
-        return response.data;
     }
 }
 
