@@ -30,7 +30,7 @@ export function ProductCard(product: Readonly<IProduct>) {
             <CardMedia
                 component="img"
                 height="240"
-                image={product.image}
+                image={product.image+"height=240px"}
                 alt={product.title}
                 onClick={handleCardClick}
             />

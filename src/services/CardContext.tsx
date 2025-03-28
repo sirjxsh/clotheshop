@@ -15,12 +15,9 @@ export const CartProvider: React.FC<React.PropsWithChildren<object>> = ({ childr
     }, [cart]);
 
     const addToCart = (product: IProduct) => {
-        const productWithUniqueId = { ...product, uniqueId: uuidv4() };
-        setCart(prevCart => [...prevCart, productWithUniqueId]);
     };
 
     const removeFromCart = (uniqueId: string) => {
-        setCart(prevCart => prevCart.filter(item => item.uniqueId !== uniqueId));
     };
 
     return (
