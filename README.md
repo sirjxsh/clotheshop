@@ -19,6 +19,6 @@ npm run dev
 
 ## Aufgaben
 1. Das Programm scheint nicht richtig zu funktionieren, die Bilder der Produkte werden nicht angezeigt. Behebe das Problem.
-2. Füge eine neue Option zum Sortieren der Produkte ein
+2. Füge eine neue Option zum Sortieren der Produkte ein (Preis aufsteigend/absteigend)
 3. Errichte eine gute Detailseite
 4. Die Produkte sollen dem Warenkorb hinzugefügt werden können (Der Warenkorb soll über React implementiert werden. Die API Calls dafür sind nicht zu nutzen.)
