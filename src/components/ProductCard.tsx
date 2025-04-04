@@ -1,13 +1,25 @@
-import { Card, CardContent, CardMedia, Typography, CardActions, Button, IconButton } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, CardActions, Button, IconButton, Tooltip } from "@mui/material";
 import { AddShoppingCart } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { IProduct } from "../services/Interfaces";
+import { useState } from "react";
+import { useCart } from "../services/CardContext";
 
 export function ProductCard(product: Readonly<IProduct>) {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
         navigate(`/products/${product.id}`);
+    };
+
+    const { addToCart } = useCart();
+    const [addedToCart, setAddedToCart] = useState(false);
+
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart(product);
+            setAddedToCart(true);
+        }
     };
 
     const isTitleLong = product.title.length > 20; // Beispielbedingung für lange Titel
@@ -46,9 +58,11 @@ export function ProductCard(product: Readonly<IProduct>) {
                 <Button size="small" color="primary">
                     Details
                 </Button>
-                <IconButton color="secondary" aria-label={"Add " + product.title + " to Cart"}>
+                <Tooltip title="Produkt wurde hinzugefügt" open={addedToCart} disableHoverListener>
+                <IconButton color="secondary" aria-label={"Add " + product.title + " to Cart"} onClick={handleAddToCart}>
                     <AddShoppingCart />
                 </IconButton>
+                </Tooltip>
             </CardActions>
         </Card>
     );
